@@ -1,12 +1,13 @@
 #![feature(test)]
 
 extern crate test;
+extern crate rand;
 
 type Price = i32;
 type Size = u32;
 type Meta = u128;
 
-extern crate rand;
+
 
 type Inner = Vec<(Price, Vec<(Size, Meta)>)>;
 
@@ -59,7 +60,7 @@ impl PriceList {
 
         for x in &self.inner {
             if x.0 <= price &&
-                x.1.iter().fold(0, |sum, val| sum + val.0) <= size {
+                x.1.iter().fold(0u64, |sum, val| sum + val.0 as u64) <= size as u64 {
                 left.push(x);
             } else {
                 right.push(x)
@@ -166,7 +167,7 @@ mod tests {
     }
 
     #[bench]
-    fn bench_split_random_values(b: &mut Bencher) {
+    fn bench_split(b: &mut Bencher) {
         let mut inner: Inner = vec![];
         for _i in 0..1000 {
             inner.push((rand::random(), gen_size_meta(100)));
