@@ -4,4 +4,4 @@ version = "0.1.0"
 authors = ["Konstantin <phpconf@gmail.com>"]
 
 [dependencies]
-rand = "0.5.4"
+rand = { version = "0.5.4" }

@@ -37,9 +37,7 @@ impl PriceList {
     }
 
     fn get_prices(&self) -> Vec<Price> {
-
-        self.inner.iter().cloned().map(|x| x.0).collect()
-
+        self.inner.iter().map(|x| x.0).collect()
     }
 
 //    fn split(&self, price: Price, size: Size) -> impl Iterator<Item=&[(Price, Vec<(Size, Meta)>)]>{
