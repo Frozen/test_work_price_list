@@ -7,8 +7,6 @@ type Price = i32;
 type Size = u32;
 type Meta = u128;
 
-
-
 type Inner = Vec<(Price, Vec<(Size, Meta)>)>;
 
 struct PriceList {
