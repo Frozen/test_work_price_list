@@ -12,11 +12,6 @@ pub struct PriceList {
     inner: Inner
 }
 
-pub struct Split<'a> {
-    left: Vec<&'a (Price, Vec<(Size, Meta)>)>,
-    right: Vec<&'a (Price, Vec<(Size, Meta)>)>,
-}
-
 impl PriceList {
     pub fn new() -> PriceList {
         PriceList {
@@ -96,7 +91,6 @@ impl PriceList {
 #[cfg(test)]
 mod tests {
 
-    use test::Bencher;
     use super::*;
     use rand::{thread_rng, Rng};
 
