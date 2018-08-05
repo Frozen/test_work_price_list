@@ -5,3 +5,11 @@ authors = ["Konstantin <phpconf@gmail.com>"]
 
 [dependencies]
 rand = { version = "0.5.4" }
+
+
+[dev-dependencies]
+criterion = "0.2"
+
+[[bench]]
+name = "price_list"
+harness = false
