@@ -109,11 +109,9 @@ mod tests {
         let mut rng = thread_rng();
         let n: u32 = rng.gen_range(100, 1000);
 
-
         let random_values = (0..n).map(|_| {
             rand::random()
         }).collect::<Vec<i32>>();
-
 
 //        println!("random_values {:?}", &random_values);
         for i in random_values {
@@ -138,7 +136,6 @@ mod tests {
         for _i in 0..1000 {
             inner.push((rand::random(), gen_size_meta(100)));
         }
-
 
         b.iter(|| {
 
