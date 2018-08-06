@@ -25,6 +25,14 @@ impl PriceList {
         }
     }
 
+    /// # Examples
+    ///
+    /// ```
+    /// # extern crate test_work_price_list;
+    /// # use test_work_price_list::{PriceList};
+    /// let mut lst = PriceList::new();
+    /// lst.add(1, (10, 2));
+    /// ```
     pub fn add(&mut self, price: Price, size_meta: (Size, Meta)) {
 
         match self.inner.binary_search_by_key(&price, move |&(ref a, _)| *a) {
@@ -50,6 +58,7 @@ impl PriceList {
         self.inner.iter().map(|x| x.0).collect()
     }
 
+    /// splits struct into 2, by price and size
     pub fn split(&mut self, price: Price, mut size: u128) -> PriceList {
 
         if self.inner.len() == 0 {
