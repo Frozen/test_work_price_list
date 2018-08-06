@@ -14,8 +14,6 @@ fn gen_size_meta(times: u32) -> Vec<(Size, Meta)> {
 
 fn bench_price_list_add(c: &mut Criterion) {
 
-
-
     c.bench_function("add", |b| {
         let mut inner: Inner = vec![];
         for _i in 0..1000 {
@@ -55,12 +53,10 @@ fn bench_split(c: &mut Criterion) {
         }
 
         b.iter(|| {
-            price_list.split(rand::random(), rand::random());
+            price_list.split(rand::random(), rand::random::<u32>() as u128);
         });
 
     });
-
-
 
 }
 
