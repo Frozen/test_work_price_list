@@ -50,7 +50,7 @@ impl PriceList {
         self.inner.iter().map(|x| x.0).collect()
     }
 
-    pub fn split(&mut self, price: Price, mut size: Size) -> PriceList {
+    pub fn split(&mut self, price: Price, mut size: u128) -> PriceList {
 
         if self.inner.len() == 0 {
             return PriceList::new();
@@ -68,9 +68,9 @@ impl PriceList {
 
             if i.0 <= price {
                 for j in &i.1 {
-                    if j.0 <= size {
+                    if j.0 as u128 <= size {
                         cur.add(i.0, *j);
-                        size -= j.0
+                        size -= j.0 as u128
                     } else {
                         out.add(i.0, *j)
                     }
@@ -84,6 +84,10 @@ impl PriceList {
         self.inner = cur.inner;
         return out;
 
+    }
+
+    fn get_size_sum(&self) -> u128 {
+        self.inner.iter().map(|x| x.1.iter().fold(0u128, |a, b| a + b.0 as u128)).sum()
     }
 
 }
@@ -155,6 +159,30 @@ mod tests {
 
         assert_eq!(vec![(100, vec![(100, 0)])], lst.inner);
         assert_eq!(vec![(100, vec![(50, 0)]), (200, vec![(200, 0)])], splitted.inner);
+
+    }
+
+    //  разделение на равные по size доли;
+    #[test]
+    fn check_split_half_size() {
+
+        let mut lst = PriceList::new();
+        let mut rng = thread_rng();
+
+        let mut size: u128 = 0;
+        for _ in 0..10 {
+            for _ in 0..10 {
+                let _size = rand::random::<u32>();
+                size += _size as u128;
+                lst.add(rand::random(), (10, 0))
+            }
+        }
+
+        // 10 элементов, по 10 в каждом, при size=10
+        let half_size = 10 * 10 * 10 / 2;
+        let right = lst.split(std::i32::MAX, half_size);
+
+        assert_eq!(lst.get_size_sum(), right.get_size_sum());
 
     }
 
